@@ -1,6 +1,7 @@
 import {Component, OnInit} from "@angular/core";
 import * as $ from "jquery";
-import {dia,g,V} from "jointjs";
+import {dia, g, shapes, V} from "jointjs";
+
 
 @Component({
   selector: 'app-root',
@@ -11,20 +12,20 @@ import {dia,g,V} from "jointjs";
 export class AppComponent implements OnInit{
 
   ngOnInit() {
-    let constraint = g.ellipse(400, 100, 80);
+    let constraint = g.ellipse(400, 150, 100);
 
-    let ConstraintElementView = new dia.ElementView.extend({
+    let ConstraintElementView = dia.ElementView.extend({
 
       pointerdown: function (evt, x, y) {
         let position = this.model.get('position');
         let size = this.model.get('size');
         let center = g.rect(position.x, position.y, size.width, size.height).center();
-        let intersection = constraint.intersectionWithLineFromCenterToPoint(center, 45);
+        let intersection = constraint.intersectionWithLineFromCenterToPoint(center, 0);
         dia.ElementView.prototype.pointerdown.apply(this, [evt, intersection.x, intersection.y]);
       },
 
       pointermove: function (evt, x, y) {
-        let intersection = constraint.intersectionWithLineFromCenterToPoint(g.point(x, y), 45);
+        let intersection = constraint.intersectionWithLineFromCenterToPoint(g.point(x, y), 0);
         dia.ElementView.prototype.pointermove.apply(this, [evt, intersection.x, intersection.y]);
       }
     });
@@ -32,8 +33,8 @@ export class AppComponent implements OnInit{
     let graph = new dia.Graph;
     let paper = new dia.Paper({
       el: $('#paper'),
-      width: 450,
-      height: 300,
+      width: 3000,
+      height: 3000,
       gridSize: 1,
       model: graph,
       elementView: ConstraintElementView
@@ -46,11 +47,11 @@ export class AppComponent implements OnInit{
     });
     V(paper.viewport).append(orbit);
 
-    let earth = new joint.shapes.basic.Circle({
-      position: constraint.intersectionWithLineFromCenterToPoint(g.point(100, 100), 45).offset(-10, -10),
-      size: {width: 20, height: 20},
+    let earth = new shapes.basic.Circle({
+      position: constraint.intersectionWithLineFromCenterToPoint(g.point(100,0), 0).offset(-10, -10),
+      size: {width: 50, height: 50},
       attrs: {
-        text: {text: 'earth', 'font-size': 12, fill: 'white'},
+        text: {text: 'earth', 'font-size': 14, fill: 'white'},
         circle: {fill: '#2ECC71', stroke: '#27AE60', 'stroke-width': 1}
       },
       name: 'earth'
