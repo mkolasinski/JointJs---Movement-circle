@@ -33,30 +33,30 @@ export class AppComponent implements OnInit{
     let graph = new dia.Graph;
     let paper = new dia.Paper({
       el: $('#paper'),
-      width: 3000,
-      height: 3000,
+      width: 600,
+      height: 600,
       gridSize: 1,
       model: graph,
       elementView: ConstraintElementView
     });
 
-    let orbit = V('<ellipse/>');
+    let orbit = V('<ellipse></ellipse>');
     orbit.attr({
-      cx: constraint.x, cy: constraint.y, rx: constraint.a, ry: constraint.b,
-      fill: '#ECF0F1', stroke: '#34495E', 'stroke-dasharray': [2, 2]
+      cx: 400, cy: 180, rx: constraint.a, ry: constraint.b,
+      fill: '#ECF0F1', stroke: '#34495E', 'stroke-dasharray': [5, 2]
     });
     V(paper.viewport).append(orbit);
 
     let earth = new shapes.basic.Circle({
-      position: constraint.intersectionWithLineFromCenterToPoint(g.point(100,0), 0).offset(-10, -10),
+      position: constraint.intersectionWithLineFromCenterToPoint(g.point(100, 100), 0).offset(-10, -10),
       size: {width: 50, height: 50},
       attrs: {
-        text: {text: 'earth', 'font-size': 14, fill: 'white'},
-        circle: {fill: '#2ECC71', stroke: '#27AE60', 'stroke-width': 1}
+        refY: 500,
+        text: {text: 'Earth', 'font-size': 13, 'font-weight': 'bold', fill: 'white'},
+        circle: {fill: '#2ECC71', stroke: '#095E06', 'stroke-width': 1}
       },
       name: 'earth'
     });
-
     graph.addCell(earth);
   }
 }

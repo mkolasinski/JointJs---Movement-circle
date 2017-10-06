@@ -1,4 +1,10 @@
 div#paper {
-  margin-top: 25vh;
+  margin-top: 12vh;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: auto;
+  border: 4px solid rgb(0, 0, 64);
+  border-radius: 12px;
+  box-shadow: 6px 6px 6px 6px darkgrey;
+  background-image: linear-gradient(to right bottom, rgba(0, 32, 144, 0.8), rgba(0, 160, 255, 0.8));
 }
-
