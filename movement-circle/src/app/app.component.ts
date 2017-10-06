@@ -42,7 +42,7 @@ export class AppComponent implements OnInit{
 
     let orbit = V('<ellipse></ellipse>');
     orbit.attr({
-      cx: 400, cy: 180, rx: constraint.a, ry: constraint.b,
+      cx: 300, cy: 250, rx: constraint.a, ry: constraint.b,
       fill: '#ECF0F1', stroke: '#34495E', 'stroke-dasharray': [5, 2]
     });
     V(paper.viewport).append(orbit);
@@ -51,7 +51,6 @@ export class AppComponent implements OnInit{
       position: constraint.intersectionWithLineFromCenterToPoint(g.point(100, 100), 0).offset(-10, -10),
       size: {width: 50, height: 50},
       attrs: {
-        refY: 500,
         text: {text: 'Earth', 'font-size': 13, 'font-weight': 'bold', fill: 'white'},
         circle: {fill: '#2ECC71', stroke: '#095E06', 'stroke-width': 1}
       },

@@ -1,5 +1,13 @@
+p.earth {
+  position: relative;
+  text-align: center;
+  font-size: 28px;
+  font-family: 'Papyrus', sans-serif;
+  font-weight: bolder;
+  text-shadow: 1px 1px darkblue;
+}
 div#paper {
-  margin-top: 12vh;
+  margin-top: 8vh;
   margin-left: auto;
   margin-right: auto;
   margin-bottom: auto;
