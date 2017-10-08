@@ -12,7 +12,7 @@ import {dia, g, shapes, V} from "jointjs";
 export class AppComponent implements OnInit{
 
   ngOnInit() {
-    let constraint = g.ellipse(400, 150, 100);
+    let constraint = g.ellipse(g.point(200, 190), 100, 80);
 
     let ConstraintElementView = dia.ElementView.extend({
 
@@ -33,8 +33,8 @@ export class AppComponent implements OnInit{
     let graph = new dia.Graph;
     let paper = new dia.Paper({
       el: $('#paper'),
-      width: 600,
-      height: 600,
+      width: 400,
+      height: 400,
       gridSize: 1,
       model: graph,
       elementView: ConstraintElementView
@@ -42,13 +42,13 @@ export class AppComponent implements OnInit{
 
     let orbit = V('<ellipse></ellipse>');
     orbit.attr({
-      cx: 300, cy: 250, rx: constraint.a, ry: constraint.b,
+      cx: constraint.x, cy: constraint.y, rx: constraint.a, ry: constraint.b,
       fill: '#ECF0F1', stroke: '#34495E', 'stroke-dasharray': [2, 2]
     });
     V(paper.viewport).append(orbit);
 
     let earth = new shapes.basic.Circle({
-      position: constraint.intersectionWithLineFromCenterToPoint(g.point(100, 100), 0).offset(-100, 240),
+      position: constraint.intersectionWithLineFromCenterToPoint(g.point(0, 0), 0).offset(-40, -10),
       size: {width: 50, height: 50},
       attrs: {
         text: {text: 'Earth', 'font-family': 'Papyrus', 'font-size': 13, 'font-weight': 'bold', fill: 'darkblue'},
