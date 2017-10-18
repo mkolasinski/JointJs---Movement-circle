@@ -1,8 +1,6 @@
 import {Component, OnInit} from "@angular/core";
 import * as $ from "jquery";
-import {dia, g, shapes, V} from "jointjs";
-import setPrototypeOf = Reflect.setPrototypeOf;
-
+import {dia, g, shapes, V} from "jointjs/dist/joint";
 
 @Component({
   selector: 'app-root',
@@ -14,14 +12,14 @@ export class AppComponent implements OnInit{
 
   ngOnInit() {
 
-    let constraint = g.ellipse(g.point(200,180), 120, 80);
+    let constraint = g.ellipse(g.point(200,190), 120, 80);
     let ConstraintElementView = dia.ElementView.extend({
 
       pointerdown: function (evt, x, y) {
         let position = this.model.get('position');
         let size = this.model.get('size');
         let center = g.rect(position.x, position.y, size.width, size.height).center();
-        let intersection = constraint.intersectionWithLineFromCenterToPoint(g.point(x,y), 0);
+        let intersection = constraint.intersectionWithLineFromCenterToPoint(center, 0);
         dia.ElementView.prototype.pointerdown.apply(this, [evt, intersection.x, intersection.y]);
       },
 
@@ -48,10 +46,8 @@ export class AppComponent implements OnInit{
       });
       V(paper.viewport).append(orbit);
 
-      let earth: shapes.basic.Circle;
-      earth = new shapes.basic.Circle({
-          // position: { x: constraint.x, y: constraint.y},
-          position: constraint.intersectionWithLineFromCenterToPoint(g.point(0, 0), 0).offset(-70, 0),
+      let earth = new shapes.basic.Circle({
+          position: constraint.intersectionWithLineFromCenterToPoint(g.point(0,0 ), 400).offset(-40, 10),
           size: {width: 50, height: 50},
           attrs: {
               text: {text: 'Earth', 'font-family': 'Papyrus', 'font-size': 13, 'font-weight': 'bold', fill: 'darkblue'},
@@ -60,5 +56,27 @@ export class AppComponent implements OnInit{
           name: 'earth'
       });
     graph.addCell(earth);
+
+    let planet1 = new shapes.basic.Circle({
+        position: constraint.intersectionWithLineFromCenterToPoint(g.point(120, 120), 0).offset(160,10),
+        size: { width: 40, height: 40},
+        attrs: {
+          text: { text: 'Planet', 'font-family':'Papyrus', 'font-size': 11, 'font-weight':'bold', fill:'white'},
+            circle: { fill: 'darkblue', stroke: 'black', 'stroke-width': 1 }
+        },
+        name: 'planet'
+    });
+    graph.addCell(planet1);
+
+    let planet2 = new shapes.basic.Circle({
+        position: constraint.intersectionWithLineFromCenterToPoint(g.point(100, 230), 0).offset(80, 0),
+        size: { width: 40, height: 40},
+        attrs: {
+          text: { text: 'Planet', 'font-family':'Papyrus', 'font-size':11, 'font-weight':'bold', fill:'white'},
+            circle: { fill: 'grey', stroke: 'black', 'stroke-width': 1 }
+        },
+        name: 'planet2'
+    });
+    graph.addCell(planet2);
   }
 }
